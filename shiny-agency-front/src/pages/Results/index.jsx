@@ -5,6 +5,7 @@ import { encodeQueryData } from "../../utils/Function";
 import styled from "styled-components";
 import colors from "../../utils/style/color";
 import { StyledLink } from "../../utils/Atom/StyledLink";
+import ChildrenOrLoader from "../../components/ChildrenOrLoader";
 
 const ResultsContainer = styled.div`
     display: flex;
@@ -20,7 +21,7 @@ const ResultsTitle = styled.h2`
     color: ${({ theme }) => (theme === "light" ? "#000000" : "#ffffff")};
     font-weight: bold;
     font-size: 28px;
-    max-width: 60%;
+    max-width: 80%;
     text-align: center;
     & > span {
         padding-left: 10px;
@@ -47,8 +48,10 @@ const JobDescription = styled.div`
     }
 `;
 
-const LoaderWrapper = styled.div`
+const TitleWrapper = styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 `;
 
@@ -61,24 +64,29 @@ function Results() {
     console.log(data);
 
     return (
-        <div>
+        <ResultsContainer theme={theme}>
             {!error ? (
-                <ResultsContainer theme={theme}>
-                    <ResultsTitle theme={theme}>
-                        Les compétences dont vous avez besoin:
-                        {data &&
-                            data.resultsData.map((result, index) => {
-                                return (
-                                    <JobTitle key={`r${index}-${result.title}`} theme={theme}>
-                                        {result.title}
-                                        {index === data.resultsData.length - 1 ? "" : ","}
-                                    </JobTitle>
-                                );
-                            })}
-                    </ResultsTitle>
-                    <StyledLink $isFullLink to="../freelances">
-                        Découvrez nos profils
-                    </StyledLink>
+                <ChildrenOrLoader isLoading={isLoading}>
+                    <TitleWrapper>
+                        <ResultsTitle theme={theme}>
+                            Les compétences dont vous avez besoin sont
+                            {data &&
+                                data.resultsData.map((result, index) => {
+                                    return (
+                                        <JobTitle
+                                            key={`r${index}-${result.title}`}
+                                            theme={theme}
+                                        >
+                                            {result.title}
+                                            {index === data.resultsData.length - 1 ? "" : ","}
+                                        </JobTitle>
+                                    );
+                                })}
+                        </ResultsTitle>
+                        <StyledLink $isFullLink to="../freelances">
+                            Découvrez nos profils
+                        </StyledLink>
+                    </TitleWrapper>
                     <DescriptionWrapper>
                         {data &&
                             data.resultsData.map((result, index) => {
@@ -93,11 +101,11 @@ function Results() {
                                 );
                             })}
                     </DescriptionWrapper>
-                </ResultsContainer>
+                </ChildrenOrLoader>
             ) : (
                 <div>Une erreur est survenue</div>
             )}
-        </div>
+        </ResultsContainer>
     );
 }
 
