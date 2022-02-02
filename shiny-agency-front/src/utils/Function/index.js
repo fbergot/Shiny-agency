@@ -1,6 +1,7 @@
 /**
  * Encode URI data (t=2&k=2...)
  * @param {{key:value}} data
+ * @return string
  */
 export const encodeQueryData = (data) => {
     const chunks = [];

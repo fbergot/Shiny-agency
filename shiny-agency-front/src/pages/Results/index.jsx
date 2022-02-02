@@ -55,6 +55,20 @@ const TitleWrapper = styled.div`
     justify-content: center;
 `;
 
+/**
+ * Add a coma to a word if not last of the list
+ * @param {number} index
+ * @param {string} title
+ * @param {number} lengthArrTitle
+ * @returns string
+ */
+export function formatListTitle(index, title, lengthArrTitle) {
+    if (index === lengthArrTitle - 1) {
+        return title;
+    }
+    return `${title},`;
+}
+
 function Results() {
     const { answers } = useContext(SurveyContext);
     const surveyResults = encodeQueryData(answers);
@@ -70,17 +84,15 @@ function Results() {
                         <ResultsTitle theme={theme}>
                             Les compétences dont vous avez besoin sont
                             {data &&
-                                data.resultsData.map((result, index) => {
-                                    return (
-                                        <JobTitle
-                                            key={`r${index}-${result.title}`}
-                                            theme={theme}
-                                        >
-                                            {result.title}
-                                            {index === data.resultsData.length - 1 ? "" : ","}
-                                        </JobTitle>
-                                    );
-                                })}
+                                data.resultsData.map((result, index) => (
+                                    <JobTitle key={`r${index}-${result.title}`} theme={theme}>
+                                        {formatListTitle(
+                                            index,
+                                            result.title,
+                                            data.resultsData.length
+                                        )}
+                                    </JobTitle>
+                                ))}
                         </ResultsTitle>
                         <StyledLink $isFullLink to="../freelances">
                             Découvrez nos profils
@@ -92,7 +104,7 @@ function Results() {
                                 return (
                                     <JobDescription
                                         theme={theme}
-                                        key={`result-detail-${index}-${result.title}`}
+                                        key={`detail-${index}-${result.title}`}
                                     >
                                         <JobTitle theme={theme}>{result.title}</JobTitle>
                                         <p>{result.description}</p>
