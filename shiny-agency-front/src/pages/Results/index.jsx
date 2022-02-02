@@ -61,7 +61,6 @@ function Results() {
     const { theme } = useContext(ThemeContext);
     const URL = `http://localhost:8000/results?${surveyResults}`;
     const [data, isLoading, error] = useFetch(URL);
-    console.log(data);
 
     return (
         <ResultsContainer theme={theme}>
