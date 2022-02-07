@@ -19,15 +19,15 @@ const NightModeButton = styled.button`
 `;
 
 function Footer() {
-    const { toogleTheme } = useContext(ThemeContext);
+    const { toogleTheme, theme } = useContext(ThemeContext);
     const themeToogle = () => {
         toogleTheme();
     };
+    const emoji =
+        theme === "light" ? String.fromCodePoint(0x1f319) : String.fromCodePoint(0x1f31e);
     return (
         <FooterContainer>
-            <NightModeButton onClick={themeToogle}>
-                Changer de mode
-            </NightModeButton>
+            <NightModeButton onClick={themeToogle}>Changer de mode {emoji}</NightModeButton>
         </FooterContainer>
     );
 }
