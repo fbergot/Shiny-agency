@@ -1,14 +1,10 @@
 import Footer from "./";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { ThemeProvider } from "../../utils/context";
+import { screen, fireEvent } from "@testing-library/react";
+import { renderWithWrapper } from "../../utils/test";
 
 describe("Footer", () => {
     it("should render without crashing", async () => {
-        render(
-            <ThemeProvider>
-                <Footer />
-            </ThemeProvider>
-        );
+        renderWithWrapper(<Footer />);
         // button targeting
         const nightModeButton = screen.getByRole("button");
         // test init value

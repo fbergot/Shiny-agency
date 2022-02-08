@@ -23,11 +23,13 @@ function Footer() {
     const themeToogle = () => {
         toogleTheme();
     };
-    const emoji =
+    const emojiTheme =
         theme === "light" ? String.fromCodePoint(0x1f319) : String.fromCodePoint(0x1f31e);
     return (
         <FooterContainer>
-            <NightModeButton onClick={themeToogle}>Changer de mode {emoji}</NightModeButton>
+            <NightModeButton onClick={themeToogle}>
+                Changer de mode {emojiTheme}
+            </NightModeButton>
         </FooterContainer>
     );
 }

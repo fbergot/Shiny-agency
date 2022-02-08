@@ -1,12 +1,15 @@
 import PropTypes from "prop-types";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import { ThemeContext } from "../../utils/context";
 import colors from "../../utils/style/color";
 
 const CardWrapp = styled.div`
     display: flex;
     flex-direction: column;
     padding: 15px;
-    background-color: ${colors.backgroundLight};
+    background-color: ${({ theme }) =>
+        theme === "light" ? colors.backgroundLight : colors.backgroundDark};
     border-radius: 30px;
     width: 350px;
     transition: 200ms;
@@ -17,7 +20,7 @@ const CardWrapp = styled.div`
 `;
 
 const CardLabel = styled.span`
-    color: ${colors.primary};
+    color: ${({ theme }) => (theme === "light" ? colors.primary : "#ffffff")};
     font-size: 20px;
     font-weight: bold;
     padding: 10px 0;
@@ -43,13 +46,21 @@ const CardImage = styled.img`
 `;
 
 function Card({ label, title, picture = "default_value" }) {
+    const { theme } = useContext(ThemeContext);
+    const [state, setState] = useState(false);
+    const setFavorite = () => {
+        setState(!state);
+    };
+    const emojiFavOrNot = state ? String.fromCodePoint(0x2b50) : "";
     return (
-        <CardWrapp>
-            <CardLabel>{label}</CardLabel>
+        <CardWrapp data-testid="card" theme={theme} onClick={() => setFavorite()}>
+            <CardLabel theme={theme}>{label}</CardLabel>
             <WrapperImage>
                 <CardImage src={picture} alt="freelance" />
             </WrapperImage>
-            <SpanName>{title}</SpanName>
+            <SpanName>
+                {emojiFavOrNot} {title} {emojiFavOrNot}
+            </SpanName>
         </CardWrapp>
     );
 }
