@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import DefaultProfileImg from "../../assets/pictures/profile.png";
 import { useContext, useState } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../../utils/context";
@@ -45,7 +46,7 @@ const CardImage = styled.img`
     border-radius: 50%;
 `;
 
-function Card({ label, title, picture }) {
+function Card({ label, title, picture = DefaultProfileImg }) {
     const { theme } = useContext(ThemeContext);
     const [state, setState] = useState(false);
     const setFavorite = () => {
@@ -68,7 +69,7 @@ function Card({ label, title, picture }) {
 Card.propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired,
+    picture: PropTypes.string,
 };
 
 export default Card;

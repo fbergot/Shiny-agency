@@ -3,6 +3,7 @@ import styled from "styled-components";
 import colors from "../../utils/style/color";
 import useFetch from "../../utils/HookS/useFetch";
 import ChildrenOrLoader from "../../components/ChildrenOrLoader";
+import { Link } from "react-router-dom";
 
 const WrapperCardCont = styled.div`
     display: flex;
@@ -45,14 +46,18 @@ function Freelances() {
                     <ChildrenOrLoader isLoading={isLoading}>
                         <CardsContainer>
                             {dataFreelances &&
-                                dataFreelances.freelancersList.map((freelance, index) => {
+                                dataFreelances.freelancersList.map((freelance) => {
                                     return (
-                                        <Card
-                                            label={freelance.job}
-                                            key={`${freelance.name}-${index}`}
-                                            picture={freelance.picture}
-                                            title={freelance.name}
-                                        />
+                                        <Link
+                                            key={`freelance-${freelance.id}`}
+                                            to={`/profile/${freelance.id}`}
+                                        >
+                                            <Card
+                                                label={freelance.job}
+                                                picture={freelance.picture}
+                                                title={freelance.name}
+                                            />
+                                        </Link>
                                     );
                                 })}
                         </CardsContainer>
