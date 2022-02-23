@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import Card from "../Card/index";
 import { renderWithWrapper } from "../../utils/test";
 

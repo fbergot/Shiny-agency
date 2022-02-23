@@ -106,8 +106,12 @@ function Results() {
                                         theme={theme}
                                         key={`detail-${index}-${result.title}`}
                                     >
-                                        <JobTitle theme={theme}>{result.title}</JobTitle>
-                                        <p>{result.description}</p>
+                                        <JobTitle data-testid="job-title" theme={theme}>
+                                            {result.title}
+                                        </JobTitle>
+                                        <p data-testid="job-description">
+                                            {result.description}
+                                        </p>
                                     </JobDescription>
                                 );
                             })}

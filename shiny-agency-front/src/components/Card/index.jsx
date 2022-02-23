@@ -45,7 +45,7 @@ const CardImage = styled.img`
     border-radius: 50%;
 `;
 
-function Card({ label, title, picture = "default_value" }) {
+function Card({ label, title, picture }) {
     const { theme } = useContext(ThemeContext);
     const [state, setState] = useState(false);
     const setFavorite = () => {
@@ -66,15 +66,9 @@ function Card({ label, title, picture = "default_value" }) {
 }
 
 Card.propTypes = {
-    label: PropTypes.string,
-    title: PropTypes.string,
+    label: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
-};
-
-// moins utile avec les valeurs par defaut dans la destructuration
-Card.defaultProps = {
-    label: "Dev Web",
-    title: "Mr Durand",
 };
 
 export default Card;

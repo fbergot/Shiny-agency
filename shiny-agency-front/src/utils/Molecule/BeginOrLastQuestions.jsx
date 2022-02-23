@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function BeginOrLastQuestions({ questionNumber = 1, surveyData, surveyResults }) {
+function BeginOrLastQuestions({ questionNumber = 1, surveyData }) {
     return (
         <div>
             {questionNumber > 1 && <Link to={`/survey/${questionNumber - 1}`}>Précédent</Link>}
