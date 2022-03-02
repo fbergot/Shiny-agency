@@ -1,7 +1,8 @@
 import { Loader } from "../utils/Atom/StyledLoader";
 
 function ChildrenOrLoader({ isLoading, children }) {
-    return <div>{isLoading ? <Loader data-testid="loader" /> : children}</div>;
+    return (isLoading && <Loader data-testid="loader" />) || children;
+    // return <div>{isLoading || children}</div>;
 }
 
 export default ChildrenOrLoader;

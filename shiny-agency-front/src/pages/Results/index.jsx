@@ -2,58 +2,18 @@ import { useContext } from "react";
 import { SurveyContext, ThemeContext } from "../../utils/context";
 import useFetch from "../../utils/HookS/useFetch";
 import { encodeQueryData } from "../../utils/Function";
-import styled from "styled-components";
-import colors from "../../utils/style/color";
 import { StyledLink } from "../../utils/Atom/StyledLink";
 import ChildrenOrLoader from "../../components/ChildrenOrLoader";
-
-const ResultsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 60px 90px;
-    padding: 30px;
-    background-color: ${(props) =>
-        props.theme === "light" ? colors.backgroundLight : colors.backgroundDark};
-`;
-
-const ResultsTitle = styled.h2`
-    color: ${({ theme }) => (theme === "light" ? "#000000" : "#ffffff")};
-    font-weight: bold;
-    font-size: 28px;
-    max-width: 80%;
-    text-align: center;
-    & > span {
-        padding-left: 10px;
-    }
-`;
-
-const JobTitle = styled.span`
-    color: ${({ theme }) => (theme === "light" ? colors.primary : colors.backgroundLight)};
-    text-transform: capitalize;
-`;
-
-const DescriptionWrapper = styled.div`
-    padding: 60px;
-`;
-
-const JobDescription = styled.div`
-    font-size: 18px;
-    & > p {
-        color: ${({ theme }) => (theme === "light" ? colors.secondary : "#ffffff")};
-        margin-block-start: 5px;
-    }
-    & > span {
-        font-size: 20px;
-    }
-`;
-
-const TitleWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
+import {
+    ResultsContainer,
+    ResultsTitle,
+    JobTitle,
+    TitleWrapper,
+    DescriptionWrapper,
+    JobDescription,
+} from "./styleComponents";
+import ChildrenOrError from "../../components/ChildrenOrError";
+import Error from "../../components/Error";
 
 /**
  * Add a coma to a word if not last of the list
@@ -78,7 +38,7 @@ function Results() {
 
     return (
         <ResultsContainer theme={theme}>
-            {!error ? (
+            <ChildrenOrError error={error} errorComp={<Error />}>
                 <ChildrenOrLoader isLoading={isLoading}>
                     <TitleWrapper>
                         <ResultsTitle theme={theme}>
@@ -117,9 +77,7 @@ function Results() {
                             })}
                     </DescriptionWrapper>
                 </ChildrenOrLoader>
-            ) : (
-                <div>Une erreur est survenue</div>
-            )}
+            </ChildrenOrError>
         </ResultsContainer>
     );
 }

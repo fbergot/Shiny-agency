@@ -12,6 +12,7 @@ import Footer from "./components/Footer";
 import { SurveyProvider, ThemeProvider } from "./utils/context";
 import GlobalStyle from "./utils/style/GlobalStyle";
 
+const root = document.getElementById("root");
 ReactDOM.render(
     <React.StrictMode>
         <Router>
@@ -34,5 +35,5 @@ ReactDOM.render(
             </ThemeProvider>
         </Router>
     </React.StrictMode>,
-    document.getElementById("root")
+    root
 );

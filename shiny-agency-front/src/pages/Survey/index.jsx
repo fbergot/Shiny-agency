@@ -1,43 +1,17 @@
 import { Outlet, useParams } from "react-router-dom";
-import styled from "styled-components";
-import colors from "../../utils/style/color";
 import BeginOrLastQuestions from "../../utils/Molecule/BeginOrLastQuestions";
 import ChildrenOrLoader from "../../components/ChildrenOrLoader";
 import useFetch from "../../utils/HookS/useFetch";
 import { useContext } from "react";
 import { SurveyContext } from "../../utils/context";
-
-const Wrapper = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const SurveyContainer = styled.div`
-    padding: 60px 60px;
-    margin: 60px 30px 30px 30px;
-    background-color: ${colors.backgroundLight};
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const ResponseButton = styled.button`
-    padding: 13px 30px;
-    background-color: ${colors.backgroundLight};
-    border-radius: 11px;
-    margin: 10px;
-    font-weight: bold;
-    &:hover {
-        border: 1px solid ${colors.primary};
-    }
-`;
+import { Wrapper, SurveyContainer, ResponseButton } from "./styleComponents";
+import ChildrenOrError from "../../components/ChildrenOrError";
+import Error from "../../components/Error";
 
 function Survey() {
     const objParam = useParams();
-    const [questions, isLoading, error] = useFetch("http://localhost:8000/survey");
+    const URL = "http://localhost:8000/survey";
+    const [questions, isLoading, error] = useFetch(URL);
     const { saveAnswers } = useContext(SurveyContext);
 
     const questionNumber =
@@ -49,7 +23,7 @@ function Survey() {
 
     return (
         <Wrapper>
-            {!error ? (
+            <ChildrenOrError error={error} errorComp={<Error />}>
                 <SurveyContainer>
                     <h2>Question {questionNumber}</h2>
 
@@ -79,9 +53,7 @@ function Survey() {
                         />
                     )}
                 </SurveyContainer>
-            ) : (
-                <div>Une erreur est survenue</div>
-            )}
+            </ChildrenOrError>
             <Outlet />
         </Wrapper>
     );

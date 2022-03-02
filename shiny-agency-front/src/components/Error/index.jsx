@@ -36,9 +36,7 @@ function Error() {
             <ContainerError>
                 <MessageErrorH1>Oups...</MessageErrorH1>
                 <Image404 src={Error404} alt="erreur 404" />
-                <MessageErrorP>
-                    Il semblerait qu'il y ait un problème
-                </MessageErrorP>
+                <MessageErrorP>Il semblerait qu'il y ait un problème ...</MessageErrorP>
             </ContainerError>
         </WrapperError>
     );

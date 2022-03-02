@@ -1,5 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 
+/**
+ * Hook for fetch data (with Abort controller)
+ * @param {string} url
+ * @param {RequestInit} options
+ * @returns {[data: any, isLoading: boolean, error: boolean]}
+ */
 function useFetch(url, options) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(false);
@@ -8,7 +14,6 @@ function useFetch(url, options) {
     const abortControl = useRef(new AbortController());
 
     useEffect(() => {
-        setIsLoading(true);
         const copyAbortCurr = abortControl.current;
 
         async function fetchData() {

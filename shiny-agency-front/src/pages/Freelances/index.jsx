@@ -1,48 +1,22 @@
 import Card from "../../components/Card";
-import styled from "styled-components";
-import colors from "../../utils/style/color";
 import useFetch from "../../utils/HookS/useFetch";
 import ChildrenOrLoader from "../../components/ChildrenOrLoader";
 import { Link } from "react-router-dom";
-
-const WrapperCardCont = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const CardsContainer = styled.div`
-    display: grid;
-    gap: 40px;
-    grid-template-rows: 350px 350px;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    justify-items: center;
-`;
-
-const PageTitle = styled.h1`
-    font-size: 30px;
-    text-align: center;
-    padding-bottom: 30px;
-`;
-
-const PageSubtitle = styled.h2`
-    color: ${colors.secondary};
-    font-size: 20px;
-    text-align: center;
-    padding-bottom: 30px;
-`;
+import { WrapperCardCont, CardsContainer, PageTitle, PageSubtitle } from "./styleComponents";
+import ChildrenOrError from "../../components/ChildrenOrError";
+import Error from "../../components/Error";
 
 function Freelances() {
     const [dataFreelances, isLoading, error] = useFetch("http://localhost:8000/freelances");
     return (
-        <div>
+        <>
             <PageTitle>Trouver votre prestataire</PageTitle>
             <PageSubtitle>
                 Chez Shiny, nous réunissons les meilleurs profils pour vous.
             </PageSubtitle>
 
             <WrapperCardCont>
-                {!error ? (
+                <ChildrenOrError error={error} errorComp={<Error />}>
                     <ChildrenOrLoader isLoading={isLoading}>
                         <CardsContainer>
                             {dataFreelances &&
@@ -62,11 +36,9 @@ function Freelances() {
                                 })}
                         </CardsContainer>
                     </ChildrenOrLoader>
-                ) : (
-                    <div>Une erreur est survenue</div>
-                )}
+                </ChildrenOrError>
             </WrapperCardCont>
-        </div>
+        </>
     );
 }
 
